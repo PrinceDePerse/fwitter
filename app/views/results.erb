@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <link href="css/bootstrap.min.css" rel='stylesheet' type ='text/css'> 
+     <link rel="stylesheet" type="text/css" href="css/style.css">
+     <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+     <title>Home</title>
+  </head>
+  
+  <body class = "resultsBody" id = "top"> 
+      
+<!--     NAV BAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+<!--       <a class="navbar-brand" href="#">Brand</a> -->
+      <a href="#top"><img class = "navbar-brand" src="https://g.twimg.com/Twitter_logo_blue.png" alt="BRAND" border="0"></a>
+
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">HOME <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">DISCOVER</a></li>
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search Fwitter">
+        </div>
+        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/logout">LOGOUT</a></li>   
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    
+    <br>
+    
+    <!-- USER PROFILE -->
+    <div class="col-sm-3">
+      <div class="notification-box">
+        <div class="list">
+          <img src="/images/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            <%last_index = @tweets.length - 1%>
+            <p><a id = "userBox" href="/user/username">@<%=session[:username]%></a> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+<!--     TWEET BOX -->
+    <div class="col-sm-6" class="main_box">
+      <div class="notification-box">
+        <form action="/tweet" method="POST" accept-charset="utf-8">
+          <!-- Value is guest for now until we can create accounts -->
+          <input class="inp-text" type="text" name="content" placeholder="What's going on?">
+          <input type = "hidden" name = "user_id" value = "<%=session[:user_id]%>">
+          <button type="submit" class="btn btn-default">TWEET</button>
+        </form>
+        
+        
+<!-- Display Tweets         -->
+        <% @tweets.reverse_each do |tweet|%>
+           
+        <div class="list">
+          <img src="/images/twitter-egg.jpg" class="avatar">
+          <div class="content">
+            <%@user = User.find(tweet.user_id)%>
+            <%puts "THIS IS: #{@user.id}, #{tweet.user_id}"%>
+            <a href="/user/username">@<%=@user.username%></a> 
+            <p><%=tweet.content%></p>
+          </div>
+          <i class="time"><%=tweet.created_at%></i>
+        </div>
+        <%end%>
+        
+      </div>
+         <br><br><br><br><br><br><br>
+      <center><p id = "disclaimer">Any similarities to Twitter are purely coincidental</p></center>   
+      <br><br>
+    </div>
+
+        <div class="col-sm-3">
+    </div>
+  </body>
+</html>

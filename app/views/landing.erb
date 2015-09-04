@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    
+    <title>Fwitter</title>
+    
+  </head>
+  <body class = "landingBody"> 
+        <center><h1>FWITTER <img id="bird" src="https://g.twimg.com/Twitter_logo_blue.png" style="width:100px;height:80px;"></h1></center>
+        
+<!-- Form Mixin-->
+<!-- Form Module-->
+<div class="module form-module">
+  <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+    <div class="tooltip">Click Me</div>
+  </div>
+  <div class="form">
+    <h2>Login to your account</h2>
+    <form action="/results" method="POST">
+      <input type="text" name = "username" placeholder="Username"/>
+      <input type="password" name = "pwd1" placeholder="Password"/>
+      <button>LOGIN</button>
+    </form>
+  </div>
+  
+  <div class="form">
+    <h2>Create an account</h2>
+    <form action="/signup" method="POST" ... onsubmit="return checkForm(this);">
+      <input type="text" name = "username" placeholder="Username"/>
+      <input type="password" name ="pwd1" placeholder="Password"/>
+      <input type="password" name ="pwd2" placeholder="Confirm Password"/>
+      <input type="email" name = "email" placeholder="Email Address"/>
+      <button>REGISTER</button>
+    </form>
+  </div>
+  <div class="cta"><a href="">Forgot your password?</a></div>
+</div>
+    
+      <br><br><br><br><br><br><br><br><br>
+    <center><p id = "disclaimer">Any similarities to Twitter are purely coincidental.</p></center>          
+  
+<!--   JAVASCRIPT -->
+    <script src="js/login.js"></script>
+    <script type="text/javascript">
+
+  function checkForm(form)
+  {
+    if(form.username.value == "") {
+      alert("Error: Username cannot be blank!");
+      form.username.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(form.username.value)) {
+      alert("Error: Username must contain only letters, numbers and underscores!");
+      form.username.focus();
+      return false;
+    }
+
+    if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {
+      if(form.pwd1.value.length < 6) {
+        alert("Error: Password must contain at least six characters!");
+        form.pwd1.focus();
+        return false;
+      }
+      if(form.pwd1.value == form.username.value) {
+        alert("Error: Password must be different from Username!");
+        form.pwd1.focus();
+        return false;
+      }
+      re = /[0-9]/;
+      if(!re.test(form.pwd1.value)) {
+        alert("Error: password must contain at least one number (0-9)!");
+        form.pwd1.focus();
+        return false;
+      }
+      re = /[a-z]/;
+      if(!re.test(form.pwd1.value)) {
+        alert("Error: password must contain at least one lowercase letter (a-z)!");
+        form.pwd1.focus();
+        return false;
+      }
+      re = /[A-Z]/;
+      if(!re.test(form.pwd1.value)) {
+        alert("Error: password must contain at least one uppercase letter (A-Z)!");
+        form.pwd1.focus();
+        return false;
+      }
+    } else {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      form.pwd1.focus();
+      return false;
+    }
+  }
+
+</script>
+    
+  </body>
+</html>
+
